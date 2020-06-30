@@ -23,9 +23,17 @@ namespace VerletConsole
             Vector2D originalPosition = position;
             Vector2D originalVelocity = velocity;
             float deltaTime = 0.01f;
+            float dampFactor = 0.1f;
             //begin calculations &display
             float time = Functions.Verlet(ref position, gravity, ref velocity, deltaTime);
             Console.WriteLine("************* Verlet Integration ***********");
+            Console.WriteLine("                       Original position is: {0}", originalPosition);
+            Console.WriteLine("             Time for Verlet integration is: {0}", time);
+            Console.WriteLine("                          Final position is: {0}\n", position);
+
+            position = originalPosition;
+            time = Functions.VerletDamped(ref position, gravity, ref velocity, deltaTime, dampFactor);
+            Console.WriteLine("****** Damped Verlet Integration ***********");
             Console.WriteLine("                       Original position is: {0}", originalPosition);
             Console.WriteLine("             Time for Verlet integration is: {0}", time);
             Console.WriteLine("                          Final position is: {0}\n", position);

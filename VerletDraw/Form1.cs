@@ -22,6 +22,7 @@ namespace VerletDraw
         // graphics variables
         Pen redPen = new Pen(Brushes.Red);
         Pen bluePen = new Pen(Brushes.Blue);
+        Pen purplePen = new Pen(Brushes.Purple);
         int sf = 25; //scale factor to get better draw results
         //set maximums to keep on screen
         const int MaxY = 25;
@@ -92,12 +93,19 @@ namespace VerletDraw
                 points.Add(new Vector2D(float.Parse(VOPx.Text.Trim()), float.Parse(VOPy.Text.Trim())));
                 g.DrawEllipse(redPen, float.Parse(VOPx.Text.Trim()) * sf, pby - float.Parse(VOPy.Text.Trim()) * sf, 5, 5);
                 //get the points to draw
-                List<Vector2D> drawPoints = Functions.VelocityVerletList(originalPoint, gravity, velocity, 0.01f);
-                // draw the points
-                foreach(Vector2D point in drawPoints)
+                List<Vector2D> velocityPoints = Functions.VelocityVerletList(originalPoint, gravity, velocity, 0.01f);
+                List<Vector2D> stormerPoints = Functions.StormerVerletList(originalPoint, gravity, velocity, 0.01f);
+                // draw the Velocity Verlet points
+                foreach(Vector2D point in velocityPoints)
                 {
                     g.DrawEllipse(bluePen, point.X * sf, pby - point.Y * sf, 2, 2);
                 }//end foreach
+
+                // draw the Stormer Verlet points
+                foreach(Vector2D point in stormerPoints)
+                {
+                    g.DrawEllipse(purplePen, point.X * sf, pby - point.Y * sf, 2, 2);
+                }
 
             }//eom
             errorMsg.Text = errorMessage;
